@@ -1,7 +1,7 @@
 # coding:utf-8
 
 import unittest
-import cookielib, urllib2
+import cookielib, urllib2, urllib
 
 
 cj = cookielib.CookieJar()
@@ -11,8 +11,10 @@ opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWe
 
 class NewTests(unittest.TestCase):
     def test_get(self):
-        tmp=opener.open('http://www.youtube.com')
+        tmp=opener.open("http://127.0.0.1:3333/api/login/",urllib.urlencode( {'username':'88695581521','password':'88695581521'}))
         self.assertEqual(tmp.getcode(), 200)
+        body=tmp.read()
+        import pdb; pdb.set_trace()
 
 if __name__ == '__main__':
     unittest.main()
