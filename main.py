@@ -37,6 +37,13 @@ class NewTests(unittest.TestCase):
         tmp3 = opener.open(request)
         self.assertEqual(tmp3.getcode(), 202)
 
+        request = urllib2.Request(url='http://127.0.0.1:3333/api/change_password/', data=urllib.urlencode({
+            'old_password': '1234567',
+            'new_password': '88695581521'
+        }))
+        request.get_method = lambda: 'POST'
+        tmp3 = opener.open(request)
+        self.assertEqual(tmp3.getcode(), 202)
 
 if __name__ == '__main__':
     unittest.main()
