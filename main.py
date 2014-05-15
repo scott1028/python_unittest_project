@@ -12,7 +12,8 @@ opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWe
 class NewTests(unittest.TestCase):
     def test_get(self):
         try:
-            tmp0 = opener.open('http://127.0.0.1:3333/api/ssd/subscriber/88695581521/nation/?format=json')
+            request = urllib2.Request(url='http://127.0.0.1:3333/api/ssd/subscriber/88695581521/nation/?format=json')
+            tmp0 = opener.open(request)
         except Exception as e:
             self.assertEqual(e.getcode(), 401)
 
@@ -27,6 +28,15 @@ class NewTests(unittest.TestCase):
         tmp2 = opener.open('http://127.0.0.1:3333/api/ssd/subscriber/88695581521/nation/?format=json')
         self.assertEqual(tmp2.getcode(), 200)
         body2 = tmp2.read()
+
+        request = urllib2.Request(url='http://127.0.0.1:3333/api/change_password/', data=urllib.urlencode({
+            'old_password': '88695581521',
+            'new_password': '1234567'
+        }))
+        request.get_method = lambda: 'POST'
+        tmp3 = opener.open(request)
+        self.assertEqual(tmp3.getcode(), 202)
+
 
 if __name__ == '__main__':
     unittest.main()
